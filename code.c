@@ -4,6 +4,7 @@
 
 typedef struct
 {
+    int id;
     char nome[50];
     char naipe[20];
     float preco;
@@ -11,6 +12,7 @@ typedef struct
 
 Instrumento instrumentos[MAX];
 int total = 0;
+int id = 1;
 
 void listar()
 {
@@ -22,8 +24,10 @@ void listar()
         return;
     }
 
+
     for (int i = 0; i < total; i++)
     {
+        printf("Id: %d\n", instrumentos[i].id);
         printf("Nome: %s\n", instrumentos[i].nome);
         printf("Naipe: %s\n", instrumentos[i].naipe);
         printf("Preço: %.2f\n\n", instrumentos[i].preco);
@@ -48,8 +52,11 @@ void cadastrar()
     printf("Preço: ");
     scanf("%f", &instrumento.preco);
 
+    instrumento.id = id;
+
     instrumentos[total] = instrumento;
     total++;
+    id++;
     printf("Instrumento cadastrado com sucesso!\n");
 }
 
