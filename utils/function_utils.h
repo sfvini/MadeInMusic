@@ -1,5 +1,6 @@
 #ifndef FUNCTION_UTILS_H
 #define FUNCTION_UTILS_H
+#include "instrument_utils.h"
 
 void listar(Instrumento instrumentos[], int total);
 void listarPorNaipe(Instrumento instrumentos[], int total);
