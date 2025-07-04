@@ -3,6 +3,50 @@
 #include "function_utils.h"
 #include "instrument_utils.h"
 
+#define ARQ "instrumentos.txt"
+
+void salvar(Instrumento instrumentos[], int total)
+{
+    FILE *f = fopen(ARQ, "w");
+    if (!f)
+        return;
+
+    for (int i = 0; i < total; i++)
+        fprintf(f, "%d| %s (%s) R$%.2f\n",
+                instrumentos[i].id,
+                instrumentos[i].nome,
+                instrumentos[i].naipe,
+                instrumentos[i].preco);
+    fclose(f);
+}
+
+void carregar(Instrumento instrumentos[], int *total, int *proxId)
+{
+    FILE *f = fopen(ARQ, "r");
+    if (!f)
+        return;
+
+    int id, maior = 0;
+    char nome[50], naipe[20];
+    float preco;
+    *total = 0;
+
+    while (fscanf(f, "%d %49s %19s %f",
+                  &id, nome, naipe, &preco) == 4 &&
+           *total < MAX)
+    {
+        instrumentos[*total].id = id;
+        strcpy(instrumentos[*total].nome, nome);
+        strcpy(instrumentos[*total].naipe, naipe);
+        instrumentos[*total].preco = preco;
+        if (id > maior)
+            maior = id;
+        (*total)++;
+    }
+    *proxId = maior + 1;
+    fclose(f);
+}
+
 void listar(Instrumento instrumentos[], int total)
 {
     printf("\n--LISTA DE INSTRUMENTOS--\n");
@@ -38,6 +82,7 @@ void listarPorNaipe(Instrumento instrumentos[], int total)
                    instrumentos[i].preco);
             achou = 1;
         }
+
     if (!achou)
         printf("Nenhum instrumento encontrado.\n");
 }
@@ -60,6 +105,7 @@ void listarPorNome(Instrumento instrumentos[], int total)
                    instrumentos[i].preco);
             achou = 1;
         }
+
     if (!achou)
         printf("Nenhum instrumento encontrado.\n");
 }
@@ -71,10 +117,13 @@ void cadastrar(Instrumento instrumentos[], int *total, int *proxId)
         printf("Limite de instrumentos atingido!\n");
         return;
     }
+
     Instrumento inst;
 
     printf("\n--CADASTRAR INSTRUMENTO--\nNome: ");
-    scanf("%49s", inst.nome);
+    getchar();
+    fgets(inst.nome, 49, stdin);
+    inst.nome[strcspn(inst.nome, "\n")] = '\0';
 
     printf("Naipe: ");
     scanf("%19s", inst.naipe);

@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include "./utils/file_utils.h"
 #include "./utils/function_utils.h"
 #include "./utils/instrument_utils.h"
 
