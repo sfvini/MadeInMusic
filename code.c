@@ -19,7 +19,7 @@ int proxId = 1;
 
 void salvar()
 {
-    FILE *f = fopen(ARQ, "a");
+    FILE *f = fopen(ARQ, "w");
     if (!f)
         return;
     for (Instrumento *p = instrumentos; p < instrumentos + total; p++)
@@ -77,7 +77,7 @@ void listarPorNaipe()
             achou = 1;
         }
     if (!achou)
-        printf("Nenhum encontrado.\n");
+        printf("Nenhum instrumento encontrado.\n");
 }
 
 void listarPorNome()
@@ -93,7 +93,7 @@ void listarPorNome()
             achou = 1;
         }
     if (!achou)
-        printf("Nenhum encontrado.\n");
+        printf("Nenhum instrumento encontrado.\n");
 }
 
 void cadastrar()
