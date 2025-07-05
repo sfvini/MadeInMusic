@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "function_utils.h"
-#include "instrument_utils.h"
-
-#define ARQ "instrumentos.txt"
 
 void salvar(Instrumento instrumentos[], int total)
 {
@@ -118,21 +115,22 @@ void cadastrar(Instrumento instrumentos[], int *total, int *proxId)
         return;
     }
 
-    Instrumento inst;
+    Instrumento add;
 
     printf("\n--CADASTRAR INSTRUMENTO--\nNome: ");
+
     getchar();
-    fgets(inst.nome, 49, stdin);
-    inst.nome[strcspn(inst.nome, "\n")] = '\0';
+    fgets(add.nome, 49, stdin);
+    add.nome[strcspn(add.nome, "\n")] = '\0';
 
     printf("Naipe: ");
-    scanf("%19s", inst.naipe);
+    scanf("%19s", add.naipe);
 
     printf("Preço: ");
-    scanf("%f", &inst.preco);
+    scanf("%f", &add.preco);
 
-    inst.id = (*proxId)++;
-    instrumentos[(*total)++] = inst;
+    add.id = (*proxId)++;
+    instrumentos[(*total)++] = add;
 
     salvar(instrumentos, *total);
     printf("Instrumento cadastrado!\n");

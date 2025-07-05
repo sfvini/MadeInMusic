@@ -3,6 +3,7 @@
 
 #define MAX 50
 #define SIZE 30
+#define ARQ "instrumentos.txt"
 
 typedef struct
 {

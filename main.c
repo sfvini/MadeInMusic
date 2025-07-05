@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "./utils/function_utils.h"
-#include "./utils/instrument_utils.h"
 
 int main()
 {
     Instrumento instrumentos[MAX];
-
     int total = 0, proxId = 1, op;
 
     carregar(instrumentos, &total, &proxId);
