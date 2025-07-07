@@ -29,12 +29,14 @@ O programa possui um menu interativo via terminal, permitindo que o usuário esc
 
 ### Estrutura do projeto
 
+```bash
 projeto/
 ├── main.c
 ├── utils/
-│ ├── function_utils.c
-│ ├── function_utils.h
-│ └── instrument_utils.h
+│   ├── function_utils.c
+│   ├── function_utils.h
+│   └── instrument_utils.h
+```
 
 ---
 
@@ -45,7 +47,8 @@ projeto/
 2. Compile o código:
 
 ````bash
-gcc -std=c99 main.c utils/function_utils.c -o instrumentos
+gcc main.c utils/function_utils.c -o instrumentos
+````
 
 3. Execute o programa:
 
@@ -53,6 +56,7 @@ gcc -std=c99 main.c utils/function_utils.c -o instrumentos
 
 ```bash
 ./instrumentos
+````
 
 - Windows
 
