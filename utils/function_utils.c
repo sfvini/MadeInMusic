@@ -7,9 +7,8 @@ void salvar(Instrumento instrumentos[], int total)
     FILE *f = fopen(ARQ, "w");
     if (!f)
         return;
-
     for (int i = 0; i < total; i++)
-        fprintf(f, "%d| %s (%s) R$%.2f\n",
+        fprintf(f, "%d|%s|%s|%.2f\n",
                 instrumentos[i].id,
                 instrumentos[i].nome,
                 instrumentos[i].naipe,
@@ -21,14 +20,16 @@ void carregar(Instrumento instrumentos[], int *total, int *proxId)
 {
     FILE *f = fopen(ARQ, "r");
     if (!f)
+    {
+        *total = 0;
+        *proxId = 1;
         return;
-
+    }
     int id, maior = 0;
-    char nome[50], naipe[20];
+    char nome[SIZE], naipe[SIZE];
     float preco;
     *total = 0;
-
-    while (fscanf(f, "%d %49s %19s %f",
+    while (fscanf(f, "%d|%29[^|]|%29[^|]|%f\n",
                   &id, nome, naipe, &preco) == 4 &&
            *total < MAX)
     {
@@ -44,133 +45,42 @@ void carregar(Instrumento instrumentos[], int *total, int *proxId)
     fclose(f);
 }
 
-void listar(Instrumento instrumentos[], int total)
-{
-    printf("\n--LISTA DE INSTRUMENTOS--\n");
-
-    if (total == 0)
-    {
-        printf("Nenhum instrumento cadastrado.\n");
-        return;
-    }
-    for (int i = 0; i < total; i++)
-        printf("Id: %d\nNome: %s\nNaipe: %s\nPreço: %.2f\n\n",
-               instrumentos[i].id,
-               instrumentos[i].nome,
-               instrumentos[i].naipe,
-               instrumentos[i].preco);
-}
-
-void listarPorNaipe(Instrumento instrumentos[], int total)
-{
-    char busca[SIZE];
-
-    printf("Digite o naipe: ");
-    scanf("%19s", busca);
-
-    int achou = 0;
-
-    for (int i = 0; i < total; i++)
-        if (strcmp(instrumentos[i].naipe, busca) == 0)
-        {
-            printf("Id: %d  Nome: %s  Preço: %.2f\n",
-                   instrumentos[i].id,
-                   instrumentos[i].nome,
-                   instrumentos[i].preco);
-            achou = 1;
-        }
-
-    if (!achou)
-        printf("Nenhum instrumento encontrado.\n");
-}
-
-void listarPorNome(Instrumento instrumentos[], int total)
-{
-    char busca[SIZE];
-
-    printf("Digite o nome: ");
-    scanf("%49s", busca);
-
-    int achou = 0;
-
-    for (int i = 0; i < total; i++)
-        if (strcmp(instrumentos[i].nome, busca) == 0)
-        {
-            printf("Id: %d  Naipe: %s  Preço: %.2f\n",
-                   instrumentos[i].id,
-                   instrumentos[i].naipe,
-                   instrumentos[i].preco);
-            achou = 1;
-        }
-
-    if (!achou)
-        printf("Nenhum instrumento encontrado.\n");
-}
-
-void cadastrar(Instrumento instrumentos[], int *total, int *proxId)
+int cadastrar(Instrumento instrumentos[], int *total, int *proxId, char *nome, char *naipe, float preco)
 {
     if (*total >= MAX)
-    {
-        printf("Limite de instrumentos atingido!\n");
-        return;
-    }
-
-    Instrumento add;
-
-    printf("\n--CADASTRAR INSTRUMENTO--\nNome: ");
-
-    getchar();
-    fgets(add.nome, 49, stdin);
-    add.nome[strcspn(add.nome, "\n")] = '\0';
-
-    printf("Naipe: ");
-    scanf("%19s", add.naipe);
-
-    printf("Preço: ");
-    scanf("%f", &add.preco);
-
-    add.id = (*proxId)++;
-    instrumentos[(*total)++] = add;
-
+        return 0;
+    instrumentos[*total].id = (*proxId)++;
+    strcpy(instrumentos[*total].nome, nome);
+    strcpy(instrumentos[*total].naipe, naipe);
+    instrumentos[*total].preco = preco;
+    (*total)++;
     salvar(instrumentos, *total);
-    printf("Instrumento cadastrado!\n");
+    return 1;
 }
 
-void alterar(Instrumento instrumentos[], int total)
+int alterar(Instrumento instrumentos[], int total,
+            int id, float novoPreco)
 {
-    int busca;
-
-    printf("Digite o ID: ");
-    scanf("%d", &busca);
-
     for (int i = 0; i < total; i++)
-        if (instrumentos[i].id == busca)
+        if (instrumentos[i].id == id)
         {
-            printf("Preço atual %.2f. Novo preço: ", instrumentos[i].preco);
-            scanf("%f", &instrumentos[i].preco);
+            instrumentos[i].preco = novoPreco;
             salvar(instrumentos, total);
-            printf("Preço alterado!\n");
-            return;
+            return 1;
         }
-    printf("Instrumento não encontrado.\n");
+    return 0;
 }
 
-void remover(Instrumento instrumentos[], int *total)
+int remover(Instrumento instrumentos[], int *total, int id)
 {
-    int busca;
-
-    printf("Digite o ID: ");
-    scanf("%d", &busca);
-
     for (int i = 0; i < *total; i++)
-        if (instrumentos[i].id == busca)
+        if (instrumentos[i].id == id)
         {
             for (int j = i; j < *total - 1; j++)
                 instrumentos[j] = instrumentos[j + 1];
             (*total)--;
             salvar(instrumentos, *total);
-            printf("Instrumento removido!\n");
-            return;
+            return 1;
         }
-    printf("Instrumento não encontrado.\n");
+    return 0;
 }

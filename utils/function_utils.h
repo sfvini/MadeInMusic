@@ -3,13 +3,10 @@
 
 #include "instrument_utils.h"
 
-void listar(Instrumento instrumentos[], int total);
-void listarPorNaipe(Instrumento instrumentos[], int total);
-void listarPorNome(Instrumento instrumentos[], int total);
-void cadastrar(Instrumento instrumentos[], int *total, int *proxId);
-void alterar(Instrumento instrumentos[], int total);
-void remover(Instrumento instrumentos[], int *total);
 void salvar(Instrumento instrumentos[], int total);
 void carregar(Instrumento instrumentos[], int *total, int *proxId);
+int cadastrar(Instrumento instrumentos[], int *total, int *proxId, char *nome, char *naipe, float preco);
+int alterar(Instrumento instrumentos[], int total, int id, float novoPreco);
+int remover(Instrumento instrumentos[], int *total, int id);
 
 #endif
