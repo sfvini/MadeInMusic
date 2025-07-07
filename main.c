@@ -2,7 +2,7 @@
 #include <string.h>
 #include "./utils/function_utils.h"
 
-int main(void)
+int main()
 {
     Instrumento instrumentos[MAX];
     int total = 0, proxId = 1, op;
