@@ -1,12 +1,13 @@
 #ifndef FUNCTION_UTILS_H
 #define FUNCTION_UTILS_H
 
+#include <stdbool.h>
 #include "instrument_utils.h"
 
 void salvar(Instrumento instrumentos[], int total);
 void carregar(Instrumento instrumentos[], int *total, int *proxId);
-int cadastrar(Instrumento instrumentos[], int *total, int *proxId, char *nome, char *naipe, float preco);
-int alterar(Instrumento instrumentos[], int total, int id, float novoPreco);
-int remover(Instrumento instrumentos[], int *total, int id);
+bool cadastrar(Instrumento instrumentos[], char nome, char naipe, float preco, int *total, int *proxId);
+bool alterar(Instrumento instrumentos[], int id, float novo, int *total);
+bool remover(Instrumento instrumentos[], int id, int *total);
 
 #endif

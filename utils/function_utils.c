@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 #include "function_utils.h"
 
 void salvar(Instrumento instrumentos[], int total)
@@ -45,33 +46,35 @@ void carregar(Instrumento instrumentos[], int *total, int *proxId)
     fclose(f);
 }
 
-int cadastrar(Instrumento instrumentos[], int *total, int *proxId, char *nome, char *naipe, float preco)
+bool cadastrar(Instrumento instrumentos[], char nome, char naipe, float preco, int *total, int *proxId)
 {
     if (*total >= MAX)
-        return 0;
+    {
+        return false;
+    }
+
     instrumentos[*total].id = (*proxId)++;
     strcpy(instrumentos[*total].nome, nome);
     strcpy(instrumentos[*total].naipe, naipe);
     instrumentos[*total].preco = preco;
     (*total)++;
     salvar(instrumentos, *total);
-    return 1;
+    return true;
 }
 
-int alterar(Instrumento instrumentos[], int total,
-            int id, float novoPreco)
+bool alterar(Instrumento instrumentos[], int id, float novo, int *total)
 {
     for (int i = 0; i < total; i++)
         if (instrumentos[i].id == id)
         {
-            instrumentos[i].preco = novoPreco;
+            instrumentos[i].preco = novo;
             salvar(instrumentos, total);
-            return 1;
+            return true;
         }
-    return 0;
+    return false;
 }
 
-int remover(Instrumento instrumentos[], int *total, int id)
+bool remover(Instrumento instrumentos[], int id, int *total)
 {
     for (int i = 0; i < *total; i++)
         if (instrumentos[i].id == id)
@@ -80,7 +83,7 @@ int remover(Instrumento instrumentos[], int *total, int id)
                 instrumentos[j] = instrumentos[j + 1];
             (*total)--;
             salvar(instrumentos, *total);
-            return 1;
+            return true;
         }
-    return 0;
+    return false;
 }

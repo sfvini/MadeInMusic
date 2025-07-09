@@ -25,71 +25,91 @@ int main()
 
         switch (op)
         {
+
         case 1:
         {
             if (total == 0)
                 printf("Nenhum instrumento cadastrado.\n");
             else
                 for (int i = 0; i < total; i++)
-                    printf("Id: %d  Nome: %s  Naipe: %s  Preço: %.2f\n",
+                    printf("Id: %d  Nome: %s  Naipe: %s  Preço: R$%.2f\n",
                            instrumentos[i].id,
                            instrumentos[i].nome,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
             break;
         }
+
         case 2:
         {
             char nome[SIZE], naipe[SIZE];
             float preco;
+
             printf("Nome: ");
             fgets(nome, SIZE, stdin);
             nome[strcspn(nome, "\n")] = '\0';
+
             printf("Naipe: ");
             scanf("%29s", naipe);
+
             printf("Preço: ");
             scanf("%f", &preco);
+
             getchar();
-            if (cadastrar(instrumentos, &total, &proxId, nome, naipe, preco))
+
+            if (cadastrar(instrumentos, nome, naipe, preco, &total, &proxId))
                 printf("Instrumento cadastrado!\n");
             else
                 printf("Erro ao cadastrar (limite atingido).\n");
             break;
         }
+
         case 3:
         {
             int id;
             float novo;
+
             printf("ID: ");
             scanf("%d", &id);
+
             printf("Novo preço: ");
             scanf("%f", &novo);
+
             getchar();
-            if (alterar(instrumentos, total, id, novo))
+
+            if (alterar(instrumentos, id, novo, &total))
                 printf("Preço alterado!\n");
             else
                 printf("Instrumento não encontrado.\n");
             break;
         }
+
         case 4:
         {
             int id;
+
             printf("ID: ");
             scanf("%d", &id);
+
             getchar();
-            if (remover(instrumentos, &total, id))
+
+            if (remover(instrumentos, id, &total))
                 printf("Instrumento removido!\n");
             else
                 printf("Instrumento não encontrado.\n");
             break;
         }
+
         case 5:
         {
             char naipe[SIZE];
             int achou = 0;
+
             printf("Naipe: ");
             scanf("%29s", naipe);
+
             getchar();
+
             for (int i = 0; i < total; i++)
                 if (strcmp(instrumentos[i].naipe, naipe) == 0)
                 {
@@ -99,17 +119,21 @@ int main()
                            instrumentos[i].preco);
                     achou = 1;
                 }
+
             if (!achou)
                 printf("Nenhum instrumento encontrado.\n");
             break;
         }
+
         case 6:
         {
             char nome[SIZE];
             int achou = 0;
+
             printf("Nome: ");
             fgets(nome, SIZE, stdin);
             nome[strcspn(nome, "\n")] = '\0';
+
             for (int i = 0; i < total; i++)
                 if (strcmp(instrumentos[i].nome, nome) == 0)
                 {
@@ -119,10 +143,12 @@ int main()
                            instrumentos[i].preco);
                     achou = 1;
                 }
+
             if (!achou)
                 printf("Nenhum instrumento encontrado.\n");
             break;
         }
+
         case 7:
             printf("Encerrando...\n");
             break;
