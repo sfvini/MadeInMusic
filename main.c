@@ -25,20 +25,21 @@ int main()
 
         switch (op)
         {
-
         case 1:
-        {
             if (total == 0)
+            {
                 printf("Nenhum instrumento cadastrado.\n");
+            }
             else
+            {
                 for (int i = 0; i < total; i++)
                     printf("Id: %d  Nome: %s  Naipe: %s  Preço: R$%.2f\n",
                            instrumentos[i].id,
                            instrumentos[i].nome,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
+            }
             break;
-        }
 
         case 2:
         {
@@ -103,7 +104,7 @@ int main()
         case 5:
         {
             char naipe[SIZE];
-            int achou = 0;
+            bool achou = false;
 
             printf("Naipe: ");
             scanf("%29s", naipe);
@@ -117,7 +118,7 @@ int main()
                            instrumentos[i].id,
                            instrumentos[i].nome,
                            instrumentos[i].preco);
-                    achou = 1;
+                    achou = true;
                 }
 
             if (!achou)
@@ -128,7 +129,7 @@ int main()
         case 6:
         {
             char nome[SIZE];
-            int achou = 0;
+            bool achou = false;
 
             printf("Nome: ");
             fgets(nome, SIZE, stdin);
@@ -141,7 +142,7 @@ int main()
                            instrumentos[i].id,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
-                    achou = 1;
+                    achou = true;
                 }
 
             if (!achou)
@@ -152,6 +153,7 @@ int main()
         case 7:
             printf("Encerrando...\n");
             break;
+
         default:
             printf("Opção inválida.\n");
         }
