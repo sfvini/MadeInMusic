@@ -4,64 +4,69 @@
 
 int main()
 {
-    Instrumento instrumentos[MAX];
+    Instrumento instrumentos[ESTOQUE];
     int total = 0, proxId = 1, op;
 
     carregar(instrumentos, &total, &proxId);
 
     do
     {
-        printf("\n--MENU--\n"
-               " 1 Listar\n"
-               " 2 Cadastrar\n"
-               " 3 Alterar preço\n"
-               " 4 Excluir\n"
-               " 5 Listar por naipe\n"
-               " 6 Listar por nome\n"
-               " 7 Sair\n"
-               " Opção: ");
+        printf("\n=====================================\n");
+        printf("        GERENCIAMENTO DE ESTOQUE     \n");
+        printf("=====================================\n");
+        printf("  1 - Listar todos os instrumentos\n");
+        printf("  2 - Cadastrar novo instrumento\n");
+        printf("  3 - Alterar preço de instrumento\n");
+        printf("  4 - Remover instrumento\n");
+        printf("  5 - Listar por naipe\n");
+        printf("  6 - Listar por nome\n");
+        printf("  7 - Sair\n");
+        printf("=====================================\n");
+        printf("Escolha uma opção: ");
         scanf("%d", &op);
         getchar();
+
+        printf("\n-------------------------------------\n");
 
         switch (op)
         {
         case 1:
             if (total == 0)
-            {
                 printf("Nenhum instrumento cadastrado.\n");
-            }
             else
-            {
                 for (int i = 0; i < total; i++)
-                    printf("Id: %d  Nome: %s  Naipe: %s  Preço: R$%.2f\n",
+                    printf("Id: %d | Nome: %s | Naipe: %s | Preço: R$%.2f\n",
                            instrumentos[i].id,
                            instrumentos[i].nome,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
-            }
             break;
 
         case 2:
         {
-            char nome[SIZE], naipe[SIZE];
+            char nome[STR], naipe[STR];
             float preco;
 
-            printf("Nome: ");
-            fgets(nome, SIZE, stdin);
+            printf("Digite o nome: ");
+            fgets(nome, STR, stdin);
             nome[strcspn(nome, "\n")] = '\0';
 
-            printf("Naipe: ");
-            scanf("%29s", naipe);
+            printf("Digite o naipe: ");
+            fgets(naipe, STR, stdin);
+            naipe[strcspn(naipe, "\n")] = '\0';
 
-            printf("Preço: ");
+            printf("Digite o preço: R$");
             scanf("%f", &preco);
 
-            getchar();
-
             if (cadastrar(instrumentos, nome, naipe, preco, &total, &proxId))
-                printf("Instrumento cadastrado!\n");
+            {
+                printf("✅ Instrumento cadastrado com sucesso!\n");
+                printf("📦 Estoque disponível: %d\n", ESTOQUE - total);
+            }
             else
-                printf("Erro ao cadastrar (limite atingido).\n");
+            {
+                printf("❌ Erro ao cadastrar (limite atingido ou dados inválidos).\n");
+            }
             break;
         }
 
@@ -70,18 +75,17 @@ int main()
             int id;
             float novo;
 
-            printf("ID: ");
+            printf("Digite o ID: ");
             scanf("%d", &id);
 
-            printf("Novo preço: ");
+            printf("Digite o novo preço: R$");
             scanf("%f", &novo);
 
-            getchar();
-
             if (alterar(instrumentos, id, novo, &total))
-                printf("Preço alterado!\n");
+                printf("✅ Preço alterado com sucesso!\n");
             else
-                printf("Instrumento não encontrado.\n");
+                printf("❌ Erro: ID inválido ou instrumento não encontrado.\n");
+
             break;
         }
 
@@ -89,32 +93,34 @@ int main()
         {
             int id;
 
-            printf("ID: ");
+            printf("Digite o ID: ");
             scanf("%d", &id);
 
-            getchar();
-
             if (remover(instrumentos, id, &total))
-                printf("Instrumento removido!\n");
+            {
+                printf("✅ Instrumento removido com sucesso!\n");
+                printf("📦 Estoque disponível: %d\n", ESTOQUE - total);
+            }
             else
-                printf("Instrumento não encontrado.\n");
+            {
+                printf("❌ Erro: ID inválido ou instrumento não encontrado.\n");
+            }
             break;
         }
 
         case 5:
         {
-            char naipe[SIZE];
+            char naipe[STR];
             bool achou = false;
 
-            printf("Naipe: ");
-            scanf("%29s", naipe);
-
-            getchar();
+            printf("Digite o naipe: ");
+            fgets(naipe, STR, stdin);
+            naipe[strcspn(naipe, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
                 if (strcmp(instrumentos[i].naipe, naipe) == 0)
                 {
-                    printf("Id: %d  Nome: %s  Preço: %.2f\n",
+                    printf("Id: %d | Nome: %s | Preço: R$%.2f\n",
                            instrumentos[i].id,
                            instrumentos[i].nome,
                            instrumentos[i].preco);
@@ -122,23 +128,24 @@ int main()
                 }
 
             if (!achou)
-                printf("Nenhum instrumento encontrado.\n");
+                printf("Nenhum instrumento encontrado para esse naipe.\n");
+
             break;
         }
 
         case 6:
         {
-            char nome[SIZE];
+            char nome[STR];
             bool achou = false;
 
-            printf("Nome: ");
-            fgets(nome, SIZE, stdin);
+            printf("Digite o nome: ");
+            fgets(nome, STR, stdin);
             nome[strcspn(nome, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
                 if (strcmp(instrumentos[i].nome, nome) == 0)
                 {
-                    printf("Id: %d  Naipe: %s  Preço: %.2f\n",
+                    printf("Id: %d | Naipe: %s | Preço: R$%.2f\n",
                            instrumentos[i].id,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
@@ -146,17 +153,21 @@ int main()
                 }
 
             if (!achou)
-                printf("Nenhum instrumento encontrado.\n");
+                printf("Nenhum instrumento encontrado com esse nome.\n");
+
             break;
         }
 
         case 7:
-            printf("Encerrando...\n");
+            printf("Encerrando o programa...\n");
             break;
 
         default:
-            printf("Opção inválida.\n");
+            printf("⚠️ Opção inválida. Tente novamente.\n");
         }
+
+        printf("-------------------------------------\n");
+
     } while (op != 7);
 
     return 0;

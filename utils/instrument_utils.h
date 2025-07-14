@@ -1,15 +1,15 @@
 #ifndef INSTRUMENT_UTILS_H
 #define INSTRUMENT_UTILS_H
 
-#define MAX 50
-#define SIZE 30
+#define ESTOQUE 50
+#define STR 80
 #define ARQ "instrumentos.txt"
 
 typedef struct
 {
     int id;
-    char nome[50];
-    char naipe[20];
+    char nome[STR];
+    char naipe[STR];
     float preco;
 } Instrumento;
 
