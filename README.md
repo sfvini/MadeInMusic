@@ -1,6 +1,6 @@
-# Sistema de Cadastro de Instrumentos Musicais
+# 🎻 Sistema de Cadastro de Instrumentos Musicais
 
-## Descrição do Programa
+## 💡 Descrição do Programa
 
 Este programa em linguagem C é um sistema simples para cadastro, consulta, alteração e remoção de instrumentos musicais. Ele armazena as informações em memória e também salva/recupera os dados em um arquivo de texto (`instrumentos.txt`), garantindo que os dados persistam entre execuções.
 
@@ -8,7 +8,7 @@ O programa possui um menu interativo via terminal, permitindo que o usuário esc
 
 ---
 
-## Funcionalidades
+## ⚙️ Funcionalidades
 
 - Listar todos os instrumentos cadastrados.
 - Cadastrar um novo instrumento (nome, naipe e preço).
@@ -20,14 +20,14 @@ O programa possui um menu interativo via terminal, permitindo que o usuário esc
 
 ---
 
-### Requisitos
+### 💻 Requisitos
 
 - Compilador C instalado (ex: gcc).
 - Terminal/Prompt de comando.
 
 ---
 
-### Estrutura do projeto
+### 🗂️ Estrutura do projeto
 
 ```bash
 projeto/
@@ -40,7 +40,7 @@ projeto/
 
 ---
 
-### Passos para compilar e executar
+### 📄 Passos para compilar e executar
 
 1. Abra o terminal na pasta do projeto.
 
