@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "./utils/function_utils.h"
 
 int main()
@@ -28,7 +30,11 @@ int main()
 
         printf("\n-------------------------------------\n");
 
+        sleep(1);
+        system("clear");
+
         switch (op)
+
         {
         case 1:
             if (total == 0)
@@ -40,6 +46,7 @@ int main()
                            instrumentos[i].nome,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
+            sleep(2);
             break;
 
         case 2:
@@ -67,6 +74,8 @@ int main()
             {
                 printf("❌ Erro ao cadastrar (limite atingido ou dados inválidos).\n");
             }
+            sleep(2);
+
             break;
         }
 
@@ -85,6 +94,7 @@ int main()
                 printf("✅ Preço alterado com sucesso!\n");
             else
                 printf("❌ Erro: ID inválido ou instrumento não encontrado.\n");
+            sleep(2);
 
             break;
         }
@@ -96,7 +106,7 @@ int main()
             printf("Digite o ID: ");
             scanf("%d", &id);
 
-            if (remover(instrumentos, id, &total))
+            if (remover(instrumentos, id, &total, &proxId))
             {
                 printf("✅ Instrumento removido com sucesso!\n");
                 printf("📦 Estoque disponível: %d\n", ESTOQUE - total);
@@ -105,6 +115,8 @@ int main()
             {
                 printf("❌ Erro: ID inválido ou instrumento não encontrado.\n");
             }
+            sleep(2);
+
             break;
         }
 
@@ -129,6 +141,7 @@ int main()
 
             if (!achou)
                 printf("Nenhum instrumento encontrado para esse naipe.\n");
+            sleep(2);
 
             break;
         }
@@ -154,6 +167,7 @@ int main()
 
             if (!achou)
                 printf("Nenhum instrumento encontrado com esse nome.\n");
+            sleep(2);
 
             break;
         }
