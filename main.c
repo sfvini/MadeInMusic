@@ -38,14 +38,21 @@ int main()
         {
         case 1:
             if (total == 0)
+            {
                 printf("Nenhum instrumento cadastrado.\n");
+            }
+
             else
+            {
                 for (int i = 0; i < total; i++)
+                {
                     printf("Id: %d | Nome: %s | Naipe: %s | Preço: R$%.2f\n",
                            instrumentos[i].id,
                            instrumentos[i].nome,
                            instrumentos[i].naipe,
                            instrumentos[i].preco);
+                }
+            }
             sleep(2);
             break;
 
@@ -70,10 +77,12 @@ int main()
                 printf("✅ Instrumento cadastrado com sucesso!\n");
                 printf("📦 Estoque disponível: %d\n", ESTOQUE - total);
             }
+
             else
             {
                 printf("❌ Erro ao cadastrar (limite atingido ou dados inválidos).\n");
             }
+
             sleep(2);
 
             break;
@@ -91,9 +100,15 @@ int main()
             scanf("%f", &novo);
 
             if (alterar(instrumentos, id, novo, &total))
+            {
                 printf("✅ Preço alterado com sucesso!\n");
+            }
+
             else
+            {
                 printf("❌ Erro: ID inválido ou instrumento não encontrado.\n");
+            }
+
             sleep(2);
 
             break;
@@ -111,10 +126,12 @@ int main()
                 printf("✅ Instrumento removido com sucesso!\n");
                 printf("📦 Estoque disponível: %d\n", ESTOQUE - total);
             }
+
             else
             {
                 printf("❌ Erro: ID inválido ou instrumento não encontrado.\n");
             }
+
             sleep(2);
 
             break;
@@ -130,6 +147,7 @@ int main()
             naipe[strcspn(naipe, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
+            {
                 if (strcmp(instrumentos[i].naipe, naipe) == 0)
                 {
                     printf("Id: %d | Nome: %s | Preço: R$%.2f\n",
@@ -138,9 +156,13 @@ int main()
                            instrumentos[i].preco);
                     achou = true;
                 }
+            }
 
             if (!achou)
+            {
                 printf("Nenhum instrumento encontrado para esse naipe.\n");
+            }
+
             sleep(2);
 
             break;
@@ -156,6 +178,7 @@ int main()
             nome[strcspn(nome, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
+            {
                 if (strcmp(instrumentos[i].nome, nome) == 0)
                 {
                     printf("Id: %d | Naipe: %s | Preço: R$%.2f\n",
@@ -164,9 +187,13 @@ int main()
                            instrumentos[i].preco);
                     achou = true;
                 }
+            }
 
             if (!achou)
+            {
                 printf("Nenhum instrumento encontrado com esse nome.\n");
+            }
+
             sleep(2);
 
             break;
