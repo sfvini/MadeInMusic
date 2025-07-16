@@ -25,40 +25,6 @@ void salvar(Instrumento instrumentos[], int total)
     fclose(f);
 }
 
-void carregar(Instrumento instrumentos[], int *total, int *proxId)
-{
-    FILE *f = fopen(ARQ, "r");
-    if (!f)
-    {
-        *total = 0;
-        *proxId = 1;
-        return;
-    }
-
-    int id, maior = 0;
-    char nome[STR], naipe[STR];
-    float preco;
-    *total = 0;
-
-    while (fscanf(f, "%d| Nome: %29[^|] Naipe: %29[^R$] R$%f\n", &id, nome, naipe, &preco) == 4 && *total < ESTOQUE)
-    {
-        instrumentos[*total].id = id;
-        strcpy(instrumentos[*total].nome, nome);
-        strcpy(instrumentos[*total].naipe, naipe);
-        instrumentos[*total].preco = preco;
-
-        if (id > maior)
-        {
-            maior = id;
-        }
-
-        (*total)++;
-    }
-
-    *proxId = maior + 1;
-    fclose(f);
-}
-
 bool cadastrar(Instrumento instrumentos[], char nome[], char naipe[], float preco, int *total, int *proxId)
 {
     if (*total >= ESTOQUE || preco <= 0 || strlen(nome) == 0 || strlen(naipe) == 0)

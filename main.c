@@ -10,8 +10,6 @@ int main()
     Instrumento instrumentos[ESTOQUE];
     int total = 0, proxId = 1, op;
 
-    carregar(instrumentos, &total, &proxId);
-
     do
     {
         printf("\n=====================================\n");
@@ -65,9 +63,11 @@ int main()
 
             printf("Digite o nome: ");
             fgets(nome, STR, stdin);
+            nome[strcspn(nome, "\n")] = '\0';
 
             printf("Digite o naipe: ");
             fgets(naipe, STR, stdin);
+            naipe[strcspn(naipe, "\n")] = '\0';
 
             printf("Digite o preço: R$");
             scanf("%f", &preco);
@@ -141,6 +141,7 @@ int main()
 
             printf("Digite o naipe: ");
             fgets(naipe, STR, stdin);
+            naipe[strcspn(naipe, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
             {
@@ -170,6 +171,7 @@ int main()
 
             printf("Digite o nome: ");
             fgets(nome, STR, stdin);
+            nome[strcspn(nome, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
             {
