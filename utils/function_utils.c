@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
-#include <time.h>
 #include "function_utils.h"
 
 void salvar(Instrumento instrumentos[], int total)
@@ -12,9 +11,6 @@ void salvar(Instrumento instrumentos[], int total)
     {
         return;
     }
-    
-    time_t h = time(NULL);
-    fprintf(f, "%s", ctime(&h));
 
     for (int i = 0; i < total; i++)
     {

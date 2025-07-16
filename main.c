@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ctype.h>
 #include "./utils/function_utils.h"
 
 int main()
@@ -25,6 +26,7 @@ int main()
         printf("  7 - Sair\n");
         printf("=====================================\n");
         printf("Escolha uma opção: ");
+
         scanf("%d", &op);
         getchar();
 
@@ -34,7 +36,6 @@ int main()
         system("clear");
 
         switch (op)
-
         {
         case 1:
             if (total == 0)
@@ -53,6 +54,7 @@ int main()
                            instrumentos[i].preco);
                 }
             }
+
             sleep(2);
             break;
 
@@ -63,11 +65,9 @@ int main()
 
             printf("Digite o nome: ");
             fgets(nome, STR, stdin);
-            nome[strcspn(nome, "\n")] = '\0';
 
             printf("Digite o naipe: ");
             fgets(naipe, STR, stdin);
-            naipe[strcspn(naipe, "\n")] = '\0';
 
             printf("Digite o preço: R$");
             scanf("%f", &preco);
@@ -84,7 +84,6 @@ int main()
             }
 
             sleep(2);
-
             break;
         }
 
@@ -110,7 +109,6 @@ int main()
             }
 
             sleep(2);
-
             break;
         }
 
@@ -133,7 +131,6 @@ int main()
             }
 
             sleep(2);
-
             break;
         }
 
@@ -144,7 +141,6 @@ int main()
 
             printf("Digite o naipe: ");
             fgets(naipe, STR, stdin);
-            naipe[strcspn(naipe, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
             {
@@ -164,7 +160,6 @@ int main()
             }
 
             sleep(2);
-
             break;
         }
 
@@ -175,7 +170,6 @@ int main()
 
             printf("Digite o nome: ");
             fgets(nome, STR, stdin);
-            nome[strcspn(nome, "\n")] = '\0';
 
             for (int i = 0; i < total; i++)
             {
@@ -195,7 +189,6 @@ int main()
             }
 
             sleep(2);
-
             break;
         }
 
@@ -208,7 +201,6 @@ int main()
         }
 
         printf("-------------------------------------\n");
-
     } while (op != 7);
 
     return 0;
